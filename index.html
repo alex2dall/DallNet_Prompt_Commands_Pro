@@ -5632,6 +5632,144 @@ body{
   color:#8a2f2f;
 }
 
+
+
+/* =========================================================
+   V.0.0.4 — MOBILE SCROLL FIX ONLY
+   No content, OTP, search logic or approved-card changes.
+   ========================================================= */
+
+@media (max-width: 780px){
+
+  /* Never lock the document itself on mobile */
+  html,
+  body{
+    width:100% !important;
+    min-height:100% !important;
+    height:auto !important;
+    max-height:none !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    position:static !important;
+    touch-action:pan-y !important;
+    overscroll-behavior-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+  }
+
+  /* Main app pages must remain vertically scrollable */
+  #appShell{
+    min-height:100dvh !important;
+    height:auto !important;
+    max-height:none !important;
+    overflow:visible !important;
+  }
+
+  #searchCenterToggle:checked ~ #appShell{
+    overflow:visible !important;
+  }
+
+  .app-layout,
+  .content,
+  .app-page{
+    height:auto !important;
+    max-height:none !important;
+    overflow:visible !important;
+  }
+
+  .content{
+    min-height:calc(100dvh - 74px) !important;
+    padding-bottom:110px !important;
+  }
+
+  /* Login and landing can also exceed a small phone viewport */
+  #landing,
+  #loginScreen,
+  #exitScreen{
+    height:auto !important;
+    max-height:none !important;
+    overflow-y:auto !important;
+    overflow-x:hidden !important;
+    -webkit-overflow-scrolling:touch !important;
+    touch-action:pan-y !important;
+  }
+
+  /* Search overlay is the ONLY scroll container while search is open */
+  .search-center-overlay{
+    position:fixed !important;
+    inset:0 !important;
+    width:100% !important;
+    height:100dvh !important;
+    max-height:100dvh !important;
+    overflow-x:hidden !important;
+    overflow-y:auto !important;
+    -webkit-overflow-scrolling:touch !important;
+    touch-action:pan-y !important;
+    overscroll-behavior-y:contain !important;
+    align-items:start !important;
+    justify-items:center !important;
+    padding:12px 10px calc(28px + env(safe-area-inset-bottom)) !important;
+  }
+
+  #searchCenterToggle:checked ~ #appShell .search-center-overlay{
+    display:grid !important;
+  }
+
+  .search-center{
+    display:block !important;
+    width:100% !important;
+    min-height:0 !important;
+    height:auto !important;
+    max-height:none !important;
+    margin:0 auto !important;
+    overflow:visible !important;
+    border-radius:18px !important;
+  }
+
+  .search-center-head{
+    position:sticky !important;
+    top:0 !important;
+    z-index:25 !important;
+  }
+
+  /* Results must expand naturally; overlay performs the scrolling */
+  #modalSearchResults,
+  .search-results,
+  #approvedSearchResults,
+  .approved-results{
+    min-height:0 !important;
+    height:auto !important;
+    max-height:none !important;
+    overflow:visible !important;
+    touch-action:pan-y !important;
+  }
+
+  #approvedSearchResults{
+    padding-bottom:40px !important;
+  }
+
+  /* Search controls must not trap vertical swipe gestures */
+  .search-center input,
+  .search-center select,
+  .search-center button,
+  .search-center a,
+  .search-center label{
+    touch-action:manipulation;
+  }
+}
+
+/* Extra narrow phones / Safari fallback where dvh support is partial */
+@supports not (height: 100dvh){
+  @media (max-width: 780px){
+    .search-center-overlay{
+      height:100vh !important;
+      max-height:100vh !important;
+    }
+    #appShell{
+      min-height:100vh !important;
+    }
+  }
+}
+
 </style>
 </head>
 <body>
